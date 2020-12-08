@@ -1,0 +1,25 @@
+.photos {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.image {
+    margin: 0 5px;
+    position: relative;
+}
+
+span {
+    position: absolute;
+    background-color: rgba(0,0,0,.5);
+    width: 100%;
+    height: 98%;
+    color: red;
+    font-size: 20px;
+    text-align: right;
+    display: none;
+}
+
+.image:hover span {
+    display: block;
+    cursor: pointer;
+}

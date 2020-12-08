@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { loadingPhotos, removePhotos } from './action'
+import './style.css'
 
 function App() {
+  const photos = useSelector(state => state.photos)
+  const loading = useSelector(state => state.loading)
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadingPhotos())
+  }, []);
+
+  const handleDelete = (id) => {
+    dispatch(removePhotos(id))
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="photos">
+      {loading ? 'идет загрузка...' : (
+        photos.map(photo => {
+          return (
+            <div className="image">
+              <span onClick={() => handleDelete(photo.id)}>X</span>
+              <img src={photo.thumbnailUrl} alt=""/>
+            </div>
+          )
+        })
+      )}
     </div>
   );
 }
